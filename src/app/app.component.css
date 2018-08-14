@@ -1,0 +1,23 @@
+.table-head{
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+    height: 50px;
+    color: #ffffff;
+    text-align: center;
+    padding-top: 12px;
+  }
+  .table-body{
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+    grid-row-gap: 8px;
+    text-align: center;
+    padding-top: 12px;
+  }
+  table{
+    width: 101%;
+  }
+  .table-container{
+    height: 440px;
+    overflow: auto;
+    /*width: 550px;*/
+  }
