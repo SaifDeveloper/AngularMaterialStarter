@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatSort, MatTableDataSource} from '@angular/material';
 import {DataService} from './data-service.service';
+import {User} from './users'
 
 @Component({
   selector: 'app-root',
@@ -8,19 +9,10 @@ import {DataService} from './data-service.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  TABLE_DATA = [
-    {id_call: 'arg123', status: 'Matched', cdr_id: 'cdr123', a_number: 28907454,b_number:123,start_date:'01/01/2016',start_time:'10:20',duration:100},
-    {id_call: 'arg123', status: 'Matched', cdr_id: 'cdr123', a_number: 28907454,b_number:466,start_date:'02/01/2016',start_time:'01:20',duration:100},
-    {id_call: 'arg123', status: 'Matched', cdr_id: 'cdr123', a_number: 28907454,b_number:113,start_date:'03/01/2016',start_time:'11:30',duration:100},
-    {id_call: 'arg123', status: 'Matched', cdr_id: 'cdr123', a_number: 28907454,b_number:103,start_date:'10/02/2016',start_time:'04:55',duration:100},
-    {id_call: 'arg123', status: 'Matched', cdr_id: 'cdr123', a_number: 28907454,b_number:974,start_date:'10/02/2016',start_time:'10:20',duration:100},
-    {id_call: 'arg123', status: 'Matched', cdr_id: 'cdr123', a_number: 28907454,b_number:789,start_date:'10/03/2016',start_time:'10:20',duration:100},
-    {id_call: 'arg123', status: 'Matched', cdr_id: 'cdr123', a_number: 28907454,b_number:123,start_date:'10/01/2017',start_time:'10:20',duration:100},
-    {id_call: 'arg123', status: 'Matched', cdr_id: 'cdr123', a_number: 28907454,b_number:123,start_date:'10/01/2017',start_time:'10:20',duration:100},
-    {id_call: 'arg123', status: 'Matched', cdr_id: 'cdr123', a_number: 28907454,b_number:123,start_date:'10/01/2017',start_time:'10:20',duration:100},
-    {id_call: 'arg123', status: 'Matched', cdr_id: 'cdr123', a_number: 28907454,b_number:123,start_date:'10/01/2016',start_time:'10:20',duration:100},
-    {id_call: 'arg123', status: 'Matched', cdr_id: 'cdr123', a_number: 28907454,b_number:123,start_date:'10/01/2016',start_time:'10:20',duration:100}
-  ];
+  dataSource:MatTableDataSource<User>;
+  Users;
+
+  TABLE_DATA = [];
 
   config = {
     suppressScrollX: true,
@@ -28,8 +20,8 @@ export class AppComponent implements OnInit {
   };
 
   //TABLE
-  displayedColumns: string[] = ['id_call', 'status', 'cdr_id', 'a_number','b_number','start_date','start_time','duration'];
-  dataSource = new MatTableDataSource(this.TABLE_DATA);
+  displayedColumns: string[] = ['id', 'name', 'username', 'email'];
+  // dataSource = new MatTableDataSource(this.Users);
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -38,10 +30,15 @@ export class AppComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.dataSource.sort = this.sort;
+    
     this.dataService.getData().subscribe((data)=>{
-      console.log(data);
+      console.log('Data:',data);
+      this.Users = data;
+      this.dataSource = new MatTableDataSource(this.Users);
+      this.dataSource.sort = this.sort;
+      console.log('USERS:',this.Users)
     })
+    
   }
 
 }

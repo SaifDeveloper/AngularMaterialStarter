@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError,tap} from 'rxjs/internal/operators';
+import {User} from './users'
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class DataService {
     return this.http.get(this.url).pipe(
       tap(data =>
         //data can be console logged below
-        {}
+        {console.log(data)}
       ),
       catchError(this.handleError)
     );
