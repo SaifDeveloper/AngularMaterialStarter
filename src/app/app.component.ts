@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatSort, MatTableDataSource} from '@angular/material';
+import {DataService} from './data-service.service';
 
 @Component({
   selector: 'app-root',
@@ -32,10 +33,15 @@ export class AppComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() { }
+  constructor(private dataService:DataService) {
+    
+   }
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
+    this.dataService.getData().subscribe((data)=>{
+      console.log(data);
+    })
   }
 
 }
